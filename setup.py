@@ -17,7 +17,7 @@ else:
     requirements = []
 
 setup(
-    name="snap-demo",
+    name="packaging-demo",
     maintainer="Shane Fagan",
     maintainer_email="mail@example.com",
     version=version,
