@@ -31,7 +31,7 @@ If you want to start from scratch run:
     
 It will create a folder called /snap in your root directory and in there will be a snapcraft.yml file. 
 
-###Advantages
+### Advantages
 
 1. Snaps are native apps but they have permissions attached. You should figure out what exactly your app needs, be it network connectivity, the ability to bind to a port, removable media...etc when creating your package.
 2. It uses setup.py as a base so pointing to your scripts or libraries is an important step, also looking at the requirements.txt to make sure it has what it needs
@@ -44,8 +44,26 @@ It will create a folder called /snap in your root directory and in there will be
 9. Strong backing from desktop app devs
 10. Can setup services with systemd for you https://snapcraft.io/docs/services-and-daemons
 
-###Disadvantages
+### Disadvantages
 
 1. App size is fairly big because they bundle things per library
 2. There is only one centralized store rather than multiple to choose from which some devs might not like
 3. It's easy to use mostly but takes a while to get your head around the concepts
+
+## Docker
+
+Docker is a hugely popular container packaging system. Easiest way to explain it is it's an OS and your apps in a bottle. You can ship that bottle to most modern OSes and architectures. 
+
+To create a Docker image you need to create a Dockerfile. In the repo I have included a simple one you can build from. 
+
+### Advantages
+
+1. Since it's in a container, it is build once run anywhere. If it works on one system it will run on Windows, in the cloud, on Linux, anywhere. 
+2. You are under complete control over what goes into the container
+3. Amazing for services when using tools like docker-compose, cloud services like ESR, Azure App Service, Kubernetes...etc.  
+4. With python it's fairly amazing because you can setup your libraries in the container and run it just with the REPL and have an amazing commandline interface for your app for free
+### Disadvantages
+
+1. Really massive barrier to entry for new developers. Since it's a whole OS you are in control of most devs have a hard time getting over the barrier.
+2. Since it's running in a container, the filesystem is walled off so you have to juggle with volumes and the like. For most app devs it's not very intuitive but it's amazing for service devs
+
