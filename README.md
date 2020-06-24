@@ -23,7 +23,7 @@ The documentation is here for this step: https://packaging.python.org/tutorials/
 
 ## Snap packages
 
-Canonical made a fairly approachable Linux packaging system called Snap. It is built around a .yml file that describes how to build the snap. For Python packages it is really easy to build just with setup.py and a little info. 
+Canonical made a fairly approachable Linux packaging system called Snap. It is built around a YAML file that describes how to build the snap. For Python packages it is really easy to build just with setup.py and a little info. 
 
 If you want to start from scratch run:
 
