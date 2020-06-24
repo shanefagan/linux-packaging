@@ -47,8 +47,8 @@ It will create a folder called /snap in your root directory and in there will be
 
 ### Disadvantages
 
-1. App size is fairly big because they bundle things per library
-2. There is only one centralized store rather than multiple to choose from which some devs might not like
+1. App size is fairly big because they bundle everything (similar to Docker in that respect but Flatpak you have the ability to make smaller images if the runtime bundles stuff for you)
+2. There is only one centralized store rather than multiple to choose from which some devs might not like. This is a concern but you may also host your own snap packages https://ubuntu.com/blog/howto-host-your-own-snap-store
 3. It's easy to use mostly but takes a while to get your head around the concepts
 
 ## Docker
@@ -71,6 +71,8 @@ docker run appname:version
 2. You are under complete control over what goes into the container
 3. Amazing for services when using tools like docker-compose, cloud services like ESR, Azure App Service, Kubernetes...etc.  
 4. With python it's fairly amazing because you can setup your libraries in the container and run it just with the REPL and have an amazing commandline interface for your app for free
+5. Since updates are handled by tag, you have complete control over when/if you update
+
 ### Disadvantages
 
 1. Really massive barrier to entry for new developers. Since it's a whole OS you are in control of most devs have a hard time getting over the barrier.
@@ -108,3 +110,4 @@ Since we have a well designed setup.py file the longest part of the build will b
 1. For Python specific applications it's a bit much in comparison to the other options
 2. Has to C/C++ code from scratch rather than taking advantage of pre-built packages (like available in snap)
 3. Very fiddly since it uses json (just my opinion but yml is way more forgiving and IDEs are quite friendly with them instead of json)
+4. Generates a lot of junk if you are building locally
