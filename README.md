@@ -56,6 +56,14 @@ Docker is a hugely popular container packaging system. Easiest way to explain it
 
 To create a Docker image you need to create a Dockerfile. In the repo I have included a simple one you can build from. 
 
+To build a Dockerfile you can run:
+
+docker build . --tag appname:version
+
+To run your docker container after it's built you just specify the tag you defined above:
+
+docker run appname:version
+
 ### Advantages
 
 1. Since it's in a container, it is build once run anywhere. If it works on one system it will run on Windows, in the cloud, on Linux, anywhere. 
@@ -67,3 +75,34 @@ To create a Docker image you need to create a Dockerfile. In the repo I have inc
 1. Really massive barrier to entry for new developers. Since it's a whole OS you are in control of most devs have a hard time getting over the barrier.
 2. Since it's running in a container, the filesystem is walled off so you have to juggle with volumes and the like. For most app devs it's not very intuitive but it's amazing for service devs
 
+## Flatpak
+
+Flatpak is a competitor to Snap package made by the Linux community. There are a good few differences. Flatpak runs on the basis of SDKs, anyone can make an SDK, some examples include Freedesktop, Gnome and KDE. Whereas Snap usually is running images based on Ubuntu LTS versions. Different approaches for the same problem really. 
+
+Unlike Snap you have to run through a few extra steps to get the Python image working for you. 
+
+First install flathub (a repo for flatpak packages) and the freedesktop platform and sdk
+
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak install flathub org.freedesktop.Platform//1.6 org.freedesktop.Sdk//1.6
+
+Then you have to look in the `org.flatpak.AppName.json` file and make sure everything that is required is in there. In my example setup.py is used to grab the correct packages needed but sometimes extra stuff like postgres will cause some headaches for dependencies.
+
+Then build:
+
+    flatpak-builder build-dir org.flatpak.PackagingDemo.json --force-clean
+    
+Since we have a well designed setup.py file the longest part of the build will be pulling Python and building it. 
+
+### Advantages
+
+1. Unlike Snap you don't have to wait for versions of Python because you are deciding what to ship with your app
+2. For compiled applications it's an incredible tool
+3. You get exactly what you want in the package
+4. For massive applications with multiple shared dependencies it is ideal, given you can make a target SDK for your system based on a platform of your choosing and develop based on your own tools.
+
+### Disadvantages
+
+1. For Python specific applications it's a bit much in comparison to the other options
+2. Has to C/C++ code from scratch rather than taking advantage of pre-built packages (like available in snap)
+3. Very fiddly since it uses json (just my opinion but yml is way more forgiving and IDEs are quite friendly with them instead of json)
