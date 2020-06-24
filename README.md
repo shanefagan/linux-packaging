@@ -43,6 +43,7 @@ It will create a folder called /snap in your root directory and in there will be
 8. Native packages but available on multiple different Linux distros
 9. Strong backing from desktop app devs
 10. Can setup services with systemd for you https://snapcraft.io/docs/services-and-daemons
+11. Since it's built from Ubuntu you have prebuilt deb packages (along with the security of the Ubuntu repo), pip packages.
 
 ### Disadvantages
 
@@ -100,6 +101,7 @@ Since we have a well designed setup.py file the longest part of the build will b
 2. For compiled applications it's an incredible tool
 3. You get exactly what you want in the package
 4. For massive applications with multiple shared dependencies it is ideal, given you can make a target SDK for your system based on a platform of your choosing and develop based on your own tools.
+5. You can join multiple projects grabbing source tarballs/zip...etc build together and check the hash to make sure it's legitimate
 
 ### Disadvantages
 
