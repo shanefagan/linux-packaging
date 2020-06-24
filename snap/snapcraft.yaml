@@ -1,0 +1,22 @@
+# most of this is fairly easy to understand hopefully if not head to https://snapcraft.io/docs/ and do a deep dive
+# in particular look at the reference for this file https://snapcraft.io/docs/snapcraft-yaml-reference
+name: snap-demo
+base: core20
+summary: Show people how to make a snap
+description: |
+  Put in a long description of what your app does so people can see that info on the store.
+
+grade: devel
+confinement: strict # https://snapcraft.io/docs/snap-confinement I set to strict because I don't like apps misbehaving, a lot of apps use classic which is unconfined
+adopt-info: snap-demo
+
+parts:
+  snap-demo:
+    plugin: python
+    source: . # this can either be in the repo with the main body of code or a git repo
+    parse-info: [setup.py] # I use this to grab version from the setup.py because I don't want duplicated info
+
+apps:
+  snap-demo:
+    command: bin/app.py # the command your app needs to run. This is very tied to your setup.py, if you have issues check there
+    plugs: [home,network]  # permissions for this command you can see available ones for your app by typing `snap interfaces` in your terminal
