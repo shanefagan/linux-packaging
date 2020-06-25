@@ -29,7 +29,7 @@ If you want to start from scratch run:
 
     snapcraft init
     
-It will create a folder called /snap in your root directory and in there will be a snapcraft.yml file. 
+It will create a folder called /snap in your root directory and in there will be a `snapcraft.yml` file. 
 
 Then to build your package just run:
 
