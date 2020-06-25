@@ -20,6 +20,7 @@ setup(
     name="packaging-demo",
     maintainer="Shane Fagan",
     maintainer_email="mail@example.com",
+    url="example.com",
     version=version,
     packages=setuptools.find_packages(),
     scripts=glob.glob("bin/*.py"),

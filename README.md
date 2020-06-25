@@ -119,3 +119,24 @@ Since we have a well designed setup.py file the longest part of the build will b
 2. Has to build C/C++ code from scratch rather than taking advantage of pre-built packages (like available in snap)
 3. Very fiddly since it uses json (just my opinion but yml is way more forgiving and IDEs are quite friendly with them instead of json)
 4. Generates a lot of junk if you are building locally
+
+## RPM
+
+RedHat Package Manager. This format is the default of Fedora and RedHat Enterprise Linux Desktop/Server for a very long time now. Unlike Snap, Flatpak and Docker, RPM is an older format made to replace distributing with tarballs. It's very stripped back and only contains what the package itself needs to run. Rather than the other formats which have either runtimes or are a full batteries included image. 
+
+Build your Python package:
+
+    python3 setup.py bdist_rpm
+
+That is all really. It reads the setup.py file and generates the .rpm file in the `dist/` directory. It even works on Ubuntu if you install rpm from the archive. It also gives you a tarball of what was inside of the package.
+
+### Advantages
+
+1. From a packaging standpoint it's incredibly easy to use, you just ensure the required fields are included and it sorts out the rest
+2. Is a proper 100% native package, no containerization
+
+### Disadvantages
+
+1. It's very much tied to RedHat managed distributions. Flatpak, Snap and Docker are more targeted at distributing to other avenues
+2. Containerization and security are concerns for users and the other formats have that included as part of their design. If you are distributing for your own use it's fine but the other approaches work better if you want to get your app out there
+3. The build process with Python works for simple apps but requires fiddling to get the right packages installed for more complex apps
