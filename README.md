@@ -31,6 +31,14 @@ If you want to start from scratch run:
     
 It will create a folder called /snap in your root directory and in there will be a snapcraft.yml file. 
 
+Then to build your package just run:
+
+    snapcraft
+
+It sets up an environment for the build in a VM using a system called multipass. If you want to avoid it using a VM (for things like github actions, AWS' build pipeline...etc) use:
+
+    snapcraft --destructive-mode
+
 ### Advantages
 
 1. Snaps are native apps but they have permissions attached. You should figure out what exactly your app needs, be it network connectivity, the ability to bind to a port, removable media...etc when creating your package.
