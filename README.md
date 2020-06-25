@@ -115,7 +115,7 @@ Since we have a well designed setup.py file the longest part of the build will b
 
 ### Disadvantages
 
-1. For Python specific applications it's a bit much in comparison to the other options
-2. Has to C/C++ code from scratch rather than taking advantage of pre-built packages (like available in snap)
+1. For Python specific applications it has a few added hoops that the other options don't have. Snap's runtime comes with Python already installed and there are docker images which maintain the latest version of Python. For flatpak you get the added hoop to pull the right Python version, compile it and then worry about shipping the app.
+2. Has to build C/C++ code from scratch rather than taking advantage of pre-built packages (like available in snap)
 3. Very fiddly since it uses json (just my opinion but yml is way more forgiving and IDEs are quite friendly with them instead of json)
 4. Generates a lot of junk if you are building locally
