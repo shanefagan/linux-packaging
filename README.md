@@ -67,11 +67,11 @@ To create a Docker image you need to create a Dockerfile. In the repo I have inc
 
 To build a Dockerfile you can run:
 
-docker build . --tag appname:version
+    docker build . --tag appname:version
 
 To run your docker container after it's built you just specify the tag you defined above:
 
-docker run appname:version
+    docker run appname:version
 
 ### Advantages
 
