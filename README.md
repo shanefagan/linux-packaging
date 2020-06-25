@@ -141,7 +141,7 @@ That is all really. It reads the setup.py file and generates the .rpm file in th
 2. Containerization and security are concerns for users and the other formats have that included as part of their design. If you are distributing for your own use it's fine but the other approaches work better if you want to get your app out there
 3. The build process with Python works for simple apps but requires fiddling to get the right packages installed for more complex apps
 
-## DPKG (deb)
+## Debian package (deb)
 
 The dpkg packaging system is the default in Ubuntu and Debian as well as derivatives of those like Pop!OS and Mint. Basically the same advantages and disadvantages as RPM packages but dpkg is a much more popular. 
 
