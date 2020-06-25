@@ -140,3 +140,32 @@ That is all really. It reads the setup.py file and generates the .rpm file in th
 1. It's very much tied to RedHat managed distributions. Flatpak, Snap and Docker are more targeted at distributing to other avenues
 2. Containerization and security are concerns for users and the other formats have that included as part of their design. If you are distributing for your own use it's fine but the other approaches work better if you want to get your app out there
 3. The build process with Python works for simple apps but requires fiddling to get the right packages installed for more complex apps
+
+## DPKG (deb)
+
+The dpkg packaging system is the default in Ubuntu and Debian as well as derivatives of those like Pop!OS and Mint. Basically the same advantages and disadvantages as RPM packages but dpkg is a much more popular. 
+
+I'm going to avoid doing the longer approach for building this package and instead give the easiest shortcut. 
+
+Build the package using RPM above (same command) then run:
+
+    python3 setup.py bdist_rpm
+    sudo alien dist/packaging-demo-20200625-1.noarch.rpm
+    
+I was going to do a bigger write up and I spent a long time working on a tutorial for this section, actually this part took me a great deal longer than all the other sections but I felt like it was a bit futile. It's not like the deb packages are hard to build but the tools to build aren't easy. Most of the information needed is available in the setup.py about the authors, license, url...etc but you duplicate that info in the debian folder. Where most other tools pickup and go with what Python offers or at least make an option for you to script it, the tools for deb packages don't. The longer guide is below but I'd recommend steering clear unless you really have to. 
+
+So ignore the above if you want to do it properly but still it's annoying so be warned. 
+
+    mkdir debian # make a folder for the configuration files
+    echo "10" > debian/compat # I've been using Ubuntu for more than a decade, they always said this was for historical purposes but never bothered removing it, it's cruft and makes the system look annoying
+    dch --create # make a changelog (this is actually a great step for every project)
+
+Then the complex thing to explain. Make a debian/control file. This similarly to the other systems is describing the package overall and what is needed to run it. I basically just copy well made control files from bigger projects and use them as a base changing the information required. You will need to know what is needed to build your software and what is needed to run it. So minimum package versions in the Debian/Ubuntu...etc repo and their names. 
+
+Almost there. Then copy in the debian/rules file from this repo into your debian folder. 
+
+Last check you should now have 4 files, `changelog`, `compat`, `control` and `rules`, that is all the requirements set pretty much. Last command to run is:
+
+    debuild -b -us -uc
+
+Then in the the folder above the folder you are should have a .deb file with all the requirements. 
