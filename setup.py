@@ -16,6 +16,13 @@ if os.path.exists("requirements.txt"):
 else:
     requirements = []
 
+if os.path.exists("license.txt"):
+    with open("license.txt") as f:
+        license_txt = f.read()
+else:
+    license_txt = ""
+
+
 setup(
     name="packaging-demo",
     maintainer="Shane Fagan",
@@ -26,4 +33,5 @@ setup(
     scripts=glob.glob("bin/*.py"),
     python_requires=">3.6",
     install_requires=requirements,
+    license=license_txt
 )
