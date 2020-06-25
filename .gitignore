@@ -29,6 +29,7 @@ MANIFEST
 *.snap
 .flatpak-builder
 build-dir
+.pybuild
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
