@@ -21,6 +21,21 @@ Setuptools is a great way of packaging stuff just for Pypi or even interally for
 
 The documentation is here for this step: https://packaging.python.org/tutorials/packaging-projects/
 
+There are a few ways you can build your package, egg, wheel or using git and doing setup.py install directly
+
+### Advantages
+
+1. Really easy to use
+2. Gives good feedback if you are missing something 
+3. It's written in python so as a python dev you are going to be comfortable extending it (like I've done to this setup.py)
+
+### Disadvantages
+
+1. Doesn't handle native package dependencies, sometimes your app requires some things that are included on the system itself. The regular python setuptools only handle Python related stuff and not allowing easy running on the system
+2. Doesn't handle OS specific things like setting up services, desktop shortcuts, menu shortcuts...etc
+3. Updates aren't handled with the rest of your system
+4. Python changing with upgrades to your system might break packages (some of the others fix this)
+
 ## Snap packages
 
 Canonical made a fairly approachable Linux packaging system called Snap. It is built around a YAML file that describes how to build the snap. For Python packages it is really easy to build just with setup.py and a little info. 
@@ -48,7 +63,7 @@ It sets up an environment for the build in a VM using a system called multipass.
 5. Overall is very easy to pick up and go
 6. Automatically updated daily for ease of use for users but also rollbacks are allowed if there are issues
 7. Very much batteries included, everything you need is included in the package. If it works when you release you are good for a long time
-8. Native packages but available on multiple different Linux distros
+8. Works on all major Linux distros
 9. Strong backing from desktop app devs
 10. Can setup services with systemd for you https://snapcraft.io/docs/services-and-daemons
 11. Since it's built from Ubuntu you have prebuilt deb packages (along with the security of the Ubuntu repo), pip packages.
@@ -80,6 +95,7 @@ To run your docker container after it's built you just specify the tag you defin
 3. Amazing for services when using tools like docker-compose, cloud services like ESR, Azure App Service, Kubernetes...etc.  
 4. With python it's fairly amazing because you can setup your libraries in the container and run it just with the REPL and have an amazing commandline interface for your app for free
 5. Since updates are handled by tag, you have complete control over when/if you update
+6. Ability to either pin or do automatic updates
 
 ### Disadvantages
 
@@ -112,6 +128,7 @@ Since we have a well designed setup.py file the longest part of the build will b
 3. You get exactly what you want in the package
 4. For massive applications with multiple shared dependencies it is ideal, given you can make a target SDK for your system based on a platform of your choosing and develop based on your own tools.
 5. You can join multiple projects grabbing source tarballs/zip...etc build together and check the hash to make sure it's legitimate
+6. Regular check and update pattern, similar to RPM and deb
 
 ### Disadvantages
 
@@ -137,7 +154,7 @@ That is all really. It reads the setup.py file and generates the .rpm file in th
 
 ### Disadvantages
 
-1. It's very much tied to RedHat managed distributions. Flatpak, Snap and Docker are more targeted at distributing to other avenues
+1. It's very much tied to RedHat managed distributions. Flatpak, Snap, AppImage and Docker are more targeted at distributing everywhere
 2. Containerization and security are concerns for users and the other formats have that included as part of their design. If you are distributing for your own use it's fine but the other approaches work better if you want to get your app out there
 3. The build process with Python works for simple apps but requires fiddling to get the right packages installed for more complex apps
 
@@ -169,3 +186,27 @@ Last check you should now have 4 files, `changelog`, `compat`, `control` and `ru
     debuild -b -us -uc
 
 Then in the the folder above the folder you are should have a .deb file with all the requirements. 
+
+### Advantages and disadvantages
+
+Same as RPM really.
+
+## AppImage
+
+AppImage is super interesting, it's in short the Apple style of packaging, where it's an app bundle that is runable. It looks like a single file but it runs anywhere on Linux. 
+
+I'm not going to give a tutorial for it more than saying you can use a deb package to create an AppImage which is probably the easiest way. With this guide I wanted mostly to look at the tools surrounding the various packaging systems and compare how easy all they were for a fairly common language (Python obviously) but I think AppImage while it's an interesting idea I think is a fairly poor path for Python devs to ship their software. 
+
+I'll still give my advantages and disadvantages because I did investigate the format quite a bit and I feel like it's worthy of discussion though. 
+
+### Advantages
+
+1. A really easy one but important to say, requires no installation to run the program, it's just a file, the file you can just run in the terminal directly. All the rest require various types of installs but AppImage gives you a runable by default. In terms of zero to working only waiting on a download is a massive thing for a small app.
+2. Fairly future proof in design. It just works, no fragmentation between distros, no describing various OS level stuff about installing or whatever, you just run it and mostly could be run just with a "mark as executable" in the file manager and double clicking run
+3. You are getting the file directly from the developers of the source rather than through a third party. This is both an advantage and a disadvantage, it's familiar for a Windows user to go to websites to download some application but repositories are the normal thing for Linux distribution. I'd say this is more important as a feature for enterprise; it may be easier to host their own package rather than sign agreements with various distros to get into partner repositories or running the distribution of the package through legal beyond the regular EULA. I know there are devs who would take this route.
+
+### Disadvantages
+
+1. Probably the least developed in terms of tooling around packaging. It may be OK for other languages but Python it doesn't seem very fun to use. Snap and RPM took around 20 minutes total. I played around with deb packages and AppImage for a few days. Flatpak was an hour or two but none I felt like I was struggling with more than deb and AppImage. And note Python tools are very developed and easy to use it's not impossible to write a really easy system, RPM has proven you can just hook into the Python system and Snap uses the setuptools really well too.
+2. Documentation isn't very approachable. I complained about deb packages being frustrating in comparison to other formats but deb packaging had at least a lot of documentation and a lot of questions answered in loads of places. Loads of tutorials from devs as well. The others were just easy enough not to require extensive documentation but deb made up for bad tooling with good documentation. AppImage felt a bit meh on both. There is a forum you can ask questions and the devs will answer directly which is great but it would be better if they took some time and some various languages and tried to use their format and do a step by step tutorial on how it works in relation to each. 
+3. While it's a slight advantage to be able to download the file and launch it directly it brings three issues. One is updates not being handled well. Two is security, apps are limited to your home directory but there isn't containerization like Snap and Flatpak. The last one is just discoverability not being great. The others all have channels where you can easily search and find the apps. AppImage you are running to Google...etc finding the app and grabbing it, taking care for security and then running it but the others are all doing the centralized approach which has been a Linux thing for decades now. 
