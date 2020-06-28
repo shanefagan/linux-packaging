@@ -44,7 +44,7 @@ If you want to start from scratch run:
 
     snapcraft init
     
-It will create a folder called /snap in your root directory and in there will be a snapcraft.yml file. 
+It will create a folder called /snap in your root directory and in there will be a `snapcraft.yml` file. 
 
 Then to build your package just run:
 
@@ -169,7 +169,7 @@ Build the package using RPM above (same command) then run:
     python3 setup.py bdist_rpm
     sudo alien dist/packaging-demo-20200625-1.noarch.rpm
     
-I was going to do a bigger write up and I spent a long time working on a tutorial for this section, actually this part took me a great deal longer than all the other sections but I felt like it was a bit futile. It's not like the deb packages are hard to build but the tools to build aren't easy. Most of the information needed is available in the setup.py about the authors, license, url...etc but you duplicate that info in the debian folder. Where most other tools pickup and go with what Python offers or at least make an option for you to script it, the tools for deb packages don't. The longer guide is below but I'd recommend steering clear unless you really have to. 
+It's not like the deb packages are too hard to build but the tools to build aren't easy and it doesn't really help the user much. Most of the information needed is available in the setup.py about the authors, license, url...etc but you duplicate that info in the debian folder. Where most other tools pickup and go with what Python offers or at least make an option for you to script it, the tools for deb packages don't. The longer guide is below but I'd recommend steering clear unless you really have to. 
 
 So ignore the above if you want to do it properly but still it's annoying so be warned. 
 
