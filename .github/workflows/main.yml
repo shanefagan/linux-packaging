@@ -1,0 +1,54 @@
+name: Packaging CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set version
+        id: version
+        run: |
+          VERSION=$(cat VERSION)
+          echo ::set-output name=version::${VERSION}
+      - name: Build wheel
+        run: |
+          sudo apt install python3-setuptools python3-wheel
+          python3 setup.py bdist_wheel
+      - name: Build snap
+        run: |
+          sudo snap install snapcraft --classic
+          snapcraft --destructive-mode
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          release_name: ${{ steps.version.outputs.version }}
+          draft: false
+          prerelease: false
+      - name: Upload wheel
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./dist/linux-packaging-${{ steps.version.outputs.version }}-py3-none-any.whl
+          asset_name: chimp.whl
+          asset_content_type: application/zip
+      - name: Upload Snap
+        continue-on-error: true
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./linux-packaging-${{ steps.version.outputs.version }}_amd64.snap
+          asset_name: linux-packaging.snap
+          asset_content_type: application/vnd.snap
