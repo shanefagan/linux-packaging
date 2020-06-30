@@ -121,6 +121,17 @@ Then build:
     
 Since we have a well designed setup.py file the longest part of the build will be pulling Python and building it. 
 
+A lot of other tutorials will suggest running using:
+
+    flatpak-builder --run build-dir org.flatpak.PackagingDemo.json --force-clean
+
+But that fails for me when I try it because it will try to use the system libs rather than from inside of the package. Instead I had to:
+
+    flatpak-builder build-dir org.flatpak.PackagingDemo.json --install --force-clean --user
+    flatpak run org.flatpak.PackagingDemo
+
+The latter command is how you run any commandline flatpak package. Once the package is working you can ship it if you want. There are a few options here for flatpak that you can look at here https://docs.flatpak.org/en/latest/publishing.html
+
 ### Advantages
 
 1. Unlike Snap you don't have to wait for versions of Python because you are deciding what to ship with your app
@@ -129,6 +140,7 @@ Since we have a well designed setup.py file the longest part of the build will b
 4. For massive applications with multiple shared dependencies it is ideal, given you can make a target SDK for your system based on a platform of your choosing and develop based on your own tools.
 5. You can join multiple projects grabbing source tarballs/zip...etc build together and check the hash to make sure it's legitimate
 6. Regular check and update pattern, similar to RPM and deb
+7. Very easy tools to host your own repositories
 
 ### Disadvantages
 
@@ -136,6 +148,7 @@ Since we have a well designed setup.py file the longest part of the build will b
 2. Has to build C/C++ code from scratch rather than taking advantage of pre-built packages (like available in snap)
 3. Very fiddly since it uses json (just my opinion but yml is way more forgiving and IDEs are quite friendly with them instead of json)
 4. Generates a lot of junk if you are building locally
+5. The builder is great since it uses one file but it would be nice if they had an easier way to generate a bundle. Snap packages and app image both spit out a file, while flatpak generates a directory which is then used for a repository. A file is a lot easier to distribute when you are considering shipping code in an enterprise setting but the repo option is also a good thing if you are maintaining a big backend with connected services. 
 
 ## RPM
 

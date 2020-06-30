@@ -32,6 +32,6 @@ setup(
     packages=setuptools.find_packages(),
     scripts=glob.glob("bin/*.py"),
     python_requires=">3.6",
-    install_requires=requirements,
+    instll_requires=requirements,
     license=license_txt
 )

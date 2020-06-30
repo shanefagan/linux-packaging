@@ -27,17 +27,19 @@
           ]
         },
         "build-commands": [
-          "python3 setup.py install"
+          "python3 setup.py install --prefix=/app",
+          "cp -r bin/ /app/bin/"
         ],
         "sources": [
           {
-            "type": "file",
-            "path": "setup.py"
+            "type": "dir",
+            "path": "."
           },
           {
             "type": "dir",
-            "path": "."
+            "path": "bin/"
           }
         ]
-      }    ]
+      }
+    ]
 }
