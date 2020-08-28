@@ -173,7 +173,7 @@ That is all really. It reads the setup.py file and generates the .rpm file in th
 
 ## Debian package (deb)
 
-The dpkg packaging system is the default in Ubuntu and Debian as well as derivatives of those like Pop!OS and Mint. Basically the same advantages and disadvantages as RPM packages but dpkg is a much more popular. 
+The dpkg packaging system is the default in Ubuntu and Debian as well as derivatives of those like Pop!_OS and Mint. Basically the same advantages and disadvantages as RPM packages but dpkg is a much more popular. 
 
 I'm going to avoid doing the longer approach for building this package and instead give the easiest shortcut. 
 
