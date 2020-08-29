@@ -27,7 +27,7 @@ jobs:
         run: |
           sudo apt install flatpak flatpak-builder
           flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          flatpak install flathub org.freedesktop.Platform//1.6 org.freedesktop.Sdk//1.6
+          flatpak install flathub org.freedesktop.Platform//1.6 org.freedesktop.Sdk//1.6 -y --noninteractive --user
           flatpak-builder build-dir org.flatpak.PackagingDemo.json --force-clean
       - name: Create Release
         id: create_release
