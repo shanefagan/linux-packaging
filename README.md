@@ -113,21 +113,21 @@ First install flathub (a repo for flatpak packages) and the freedesktop platform
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak install flathub org.freedesktop.Platform//1.6 org.freedesktop.Sdk//1.6
 
-Then you have to look in the `org.flatpak.AppName.json` file and make sure everything that is required is in there. In my example setup.py is used to grab the correct packages needed but sometimes extra stuff like postgres will cause some headaches for dependencies.
+Then you have to look in the `org.flatpak.AppName.yml` file and make sure everything that is required is in there. In my example setup.py is used to grab the correct packages needed but sometimes extra stuff like postgres will cause some headaches for dependencies.
 
 Then build:
 
-    flatpak-builder build-dir org.flatpak.PackagingDemo.json --force-clean
+    flatpak-builder build-dir org.flatpak.PackagingDemo.yml --force-clean
     
 Since we have a well designed setup.py file the longest part of the build will be pulling Python and building it. 
 
 A lot of other tutorials will suggest running using:
 
-    flatpak-builder --run build-dir org.flatpak.PackagingDemo.json --force-clean
+    flatpak-builder --run build-dir org.flatpak.PackagingDemo.yml --force-clean
 
 But that fails for me when I try it because it will try to use the system libs rather than from inside of the package. Instead I had to:
 
-    flatpak-builder build-dir org.flatpak.PackagingDemo.json --install --force-clean --user
+    flatpak-builder build-dir org.flatpak.PackagingDemo.yml --install --force-clean --user
     flatpak run org.flatpak.PackagingDemo
 
 The latter command is how you run any commandline flatpak package. Once the package is working you can ship it if you want. There are a few options here for flatpak that you can look at here https://docs.flatpak.org/en/latest/publishing.html
