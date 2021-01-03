@@ -146,9 +146,8 @@ The latter command is how you run any commandline flatpak package. Once the pack
 
 1. For Python specific applications it has a few added hoops that the other options don't have. Snap's runtime comes with Python already installed and there are docker images which maintain the latest version of Python. For flatpak you get the added hoop to pull the right Python version, compile it and then worry about shipping the app.
 2. Has to build C/C++ code from scratch rather than taking advantage of pre-built packages (like available in snap)
-3. Very fiddly since it uses json (just my opinion but yml is way more forgiving and IDEs are quite friendly with them instead of json)
-4. Generates a lot of junk if you are building locally
-5. The builder is great since it uses one file but it would be nice if they had an easier way to generate a bundle. Snap packages and app image both spit out a file, while flatpak generates a directory which is then used for a repository. A file is a lot easier to distribute when you are considering shipping code in an enterprise setting but the repo option is also a good thing if you are maintaining a big backend with connected services. 
+3. Generates a lot of junk if you are building locally
+4. The builder is great since it uses one file but it would be nice if they had an easier way to generate a bundle. Snap packages and app image both spit out a file, while flatpak generates a directory which is then used for a repository. A file is a lot easier to distribute when you are considering shipping code in an enterprise setting but the repo option is also a good thing if you are maintaining a big backend with connected services. 
 
 ## RPM
 
